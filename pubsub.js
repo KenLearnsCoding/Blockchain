@@ -13,9 +13,9 @@ const CHANNELS ={
 
 class PubSub{
   constructor() {
-    this.pubnub = new PubSub(credentials);
+    this.pubnub = new PubNub(credentials);
 
-    this.pubnub.subscribe({ channels: object.values(CHANNELS)});
+    this.pubnub.subscribe({ channels: Object.values(CHANNELS)});
 
     this.pubnub.addListener({
       message: messageObject => {

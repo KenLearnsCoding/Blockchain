@@ -7,7 +7,6 @@
     "test": "jest --watchAll",
     "start": "node index.js",
     "dev": "npm run start-redis && nodemon index.js",
-    "dev-peer": "cross-env GENERATE_PEER_PORT='true' nodemon index.js",
     "start-redis": "redis-server --daemonize yes"
   },
   "keywords": [],
@@ -28,7 +27,6 @@
     "hex-to-binary": "^1.0.1",
     "pubnub": "^7.3.3",
     "redis": "^4.6.7",
-    "save": "^2.9.0",
-    "uuid": "^9.0.0"
+    "save": "^2.9.0"
   }
 }

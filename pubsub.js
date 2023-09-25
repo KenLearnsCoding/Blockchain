@@ -228,63 +228,140 @@
 
 
 
+// const redis = require('redis');
+
+// const CHANNELS = {
+//   TEST: 'TEST', 
+//   BLOCKCHAIN: 'BLOCKCHAIN'
+// };
+
+// class PubSub {
+//   constructor(blockchain) {
+//     this.blockchain = blockchain;
+
+//     this.publisher = redis.createClient();
+//     this.subscriber = redis.createClient();
+
+//     this.subscribeToChannels();
+
+//   }
+
+//   // Changed signature here, not sure what message and channel were doing here?
+//   //async init({channel, message}) {
+//   async init() {
+//     await this.publisher.connect();
+//     await this.subscriber.connect();
+//   }
+
+//   subscribeToChannels() {
+//     Object.values(CHANNELS).forEach(channel => {
+//       // Added debug...
+//       // console.log(`Subscribing to ${channel}`);
+//       // Subscribe passing in the subscriber function... using
+//       // same function for all channels here.
+//       this.subscriber.subscribe(channel, (message, channel) => {
+//           console.log(`Message received. Channel: ${channel}. Message: ${message}.`);
+    
+//           // Do something with this according to your application logic...
+//           const parserMessage = JSON.parse(message);
+    
+//           if (channel === CHANNELS.BLOCKCHAIN) {
+//             console.log(`Message was for channel ${CHANNELS.BLOCKCHAIN}`);
+//           }
+//       });
+//     });
+//   }
+
+//   publish({ channel, message}){
+//     this.publisher.publish(channel, message);
+//   }
+
+//   // I didn't use this as I don't know what this.blockchain.chain is.
+//   broadcastChain() {
+//     this.publish({
+//         channel: CHANNELS.BLOCKCHAIN,
+//         message: JSON.stringify(this.blockchain.chain)
+//     });
+//   }
+// }
+
+// const testPubSub = new PubSub();
+// testPubSub.init();
+// module.exports = PubSub;
+
+
 const redis = require('redis');
 
 const CHANNELS = {
-  TEST: 'TEST', 
-  BLOCKCHAIN: 'BLOCKCHAIN'
+  TEST: 'TEST',
+  BLOCKCHAIN: 'BLOCKCHAIN',
+  TRANSACTION: 'TRANSACTION'
 };
 
 class PubSub {
-  constructor(blockchain) {
+  constructor({ blockchain, transactionPool, redisUrl }) {
     this.blockchain = blockchain;
+    this.transactionPool = transactionPool;
 
-    this.publisher = redis.createClient();
-    this.subscriber = redis.createClient();
+    this.publisher = redis.createClient(redisUrl);
+    this.subscriber = redis.createClient(redisUrl);
 
     this.subscribeToChannels();
 
+    this.subscriber.on(
+      'message',
+      (channel, message) => this.handleMessage(channel, message)
+    );
   }
 
-  // Changed signature here, not sure what message and channel were doing here?
-  //async init({channel, message}) {
-  async init() {
-    await this.publisher.connect();
-    await this.subscriber.connect();
+  handleMessage(channel, message) {
+    console.log(`Message received. Channel: ${channel}. Message: ${message}.`);
+
+    const parsedMessage = JSON.parse(message);
+
+    switch(channel) {
+      case CHANNELS.BLOCKCHAIN:
+        this.blockchain.replaceChain(parsedMessage, true, () => {
+          this.transactionPool.clearBlockchainTransactions({
+            chain: parsedMessage
+          });
+        });
+        break;
+      case CHANNELS.TRANSACTION:
+        this.transactionPool.setTransaction(parsedMessage);
+        break;
+      default:
+        return;
+    }
   }
 
   subscribeToChannels() {
     Object.values(CHANNELS).forEach(channel => {
-      // Added debug...
-      // console.log(`Subscribing to ${channel}`);
-      // Subscribe passing in the subscriber function... using
-      // same function for all channels here.
-      this.subscriber.subscribe(channel, (message, channel) => {
-          console.log(`Message received. Channel: ${channel}. Message: ${message}.`);
-    
-          // Do something with this according to your application logic...
-          const parserMessage = JSON.parse(message);
-    
-          if (channel === CHANNELS.BLOCKCHAIN) {
-            console.log(`Message was for channel ${CHANNELS.BLOCKCHAIN}`);
-          }
+      this.subscriber.subscribe(channel);
+    });
+  }
+
+  publish({ channel, message }) {
+    this.subscriber.unsubscribe(channel, () => {
+      this.publisher.publish(channel, message, () => {
+        this.subscriber.subscribe(channel);
       });
     });
   }
 
-  publish({ channel, message}){
-    this.publisher.publish(channel, message);
-  }
-
-  // I didn't use this as I don't know what this.blockchain.chain is.
   broadcastChain() {
     this.publish({
-        channel: CHANNELS.BLOCKCHAIN,
-        message: JSON.stringify(this.blockchain.chain)
+      channel: CHANNELS.BLOCKCHAIN,
+      message: JSON.stringify(this.blockchain.chain)
+    });
+  }
+
+  broadcastTransaction(transaction) {
+    this.publish({
+      channel: CHANNELS.TRANSACTION,
+      message: JSON.stringify(transaction)
     });
   }
 }
 
-const testPubSub = new PubSub();
-testPubSub.init();
 module.exports = PubSub;

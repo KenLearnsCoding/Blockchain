@@ -10,6 +10,9 @@
     "dev-peer": "cross-env GENERATE_PEER_PORT='true' nodemon index.js",
     "start-redis": "redis-server --daemonize yes"
   },
+  "jest": {
+    "testEnvironment": "node"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -23,6 +26,7 @@
     "@redis/json": "^1.0.4",
     "body-parser": "^1.20.2",
     "connect-redis": "^7.1.0",
+    "elliptic": "^6.5.4",
     "express": "^4.16.3",
     "express-session": "^1.17.3",
     "hex-to-binary": "^1.0.1",

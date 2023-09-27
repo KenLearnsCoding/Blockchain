@@ -12,7 +12,7 @@ const pubsub = new PubSub({ blockchain });
 const DEFAULT_PORT = 3000;
 const ROOT_NODE_ADDRESS = `http://localhost:${DEFAULT_PORT}`;
 
-
+// pubsub.broadcastChain();
 
 app.use(bodyParser.json());
 

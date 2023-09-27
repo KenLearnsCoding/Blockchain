@@ -16,4 +16,18 @@ describe('Wallet', () => {
 
         expect(wallet).toHaveProperty('publicKey');
     });
+
+    describe('singing data', () => {
+        const data = 'foobar';
+
+        it('verifies a signature', () => {
+
+        });
+
+        it('does not verify an invalid signature', () => {
+
+        });
+    });
+
+
 });

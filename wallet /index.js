@@ -7,7 +7,7 @@ class Wallet{
 
         const keyPair = ec.genKeyPair();
 
-        this.publickey = keyPair.getPublic();
+        this.publicKey = keyPair.getPublic().encode('hex');
     }
 };
 

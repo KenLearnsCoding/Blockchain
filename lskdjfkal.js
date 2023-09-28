@@ -1,54 +1,42 @@
-const bodyParser = require('body-parser');
-const express = require('express');
-const request = require('request');
-const Blockchain = require('./blockchain');
-const PubSub = require('./pubsub');
+const Wallet = require('./index');
+const { verifySignature } = require('../util');
 
-const app = express();
-const blockchain = new Blockchain();
-const pubsub = new PubSub({ blockchain });
+describe('Wallet', () => {
+  let wallet;
 
-const DEFAULT_PORT = 3000;
-const ROOT_NODE_ADDRESS = `http://localhost:${DEFAULT_PORT}`;
-
-app.use(bodyParser.json());
-
-app.get('/api/blocks', (req, res) => {
-  res.json(blockchain.chain);
-});
-
-app.post('/api/mine', (req, res) => {
-  const { data } = req.body;
-
-  blockchain.addBlock({ data });
-
-  pubsub.broadcastChain();
-
-  res.redirect('/api/blocks');
-});
-
-const syncChains = () => {
-  request({ url: `${ROOT_NODE_ADDRESS}/api/blocks` }, (error, response, body) => {
-    if (!error && response.statusCode === 200) {
-      const rootChain = JSON.parse(body);
-
-      console.log('replace chain on a sync with', rootChain);
-      blockchain.replaceChain(rootChain);
-    }
+  beforeEach(() => {
+    wallet = new Wallet();
   });
-};
 
-let PEER_PORT;
+  it('has a `balance`', () => {
+    expect(wallet).toHaveProperty('balance');
+  });
 
-if (process.env.GENERATE_PEER_PORT === 'true') {
-  PEER_PORT = DEFAULT_PORT + Math.ceil(Math.random() * 1000);
-}
+  it('has a `publicKey`', () => {
+    expect(wallet).toHaveProperty('publicKey');
+  });
 
-const PORT = PEER_PORT || DEFAULT_PORT;
-app.listen(PORT, () => {
-  console.log(`listening at localhost:${PORT}`);
+  describe('signing data', () => {
+    const data = 'foobar';
 
-  if (PORT !== DEFAULT_PORT) {
-    syncChains();
-  }
+    it('verifies a signature', () => {
+      expect(
+        verifySignature({
+          publicKey: wallet.publicKey,
+          data,
+          signature: wallet.sign(data)
+        })
+      ).toBe(true);
+    });
+
+    it('does not verify an invalid signature', () => {
+      expect(
+        verifySignature({
+          publicKey: wallet.publicKey,
+          data,
+          signature: new Wallet().sign(data)
+        })
+      ).toBe(false);
+    });
+  });
 });

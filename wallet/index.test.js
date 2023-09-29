@@ -41,10 +41,10 @@ describe('Wallet', () => {
     });
   });
 
-  describe('createTransaction()', () => {
+  describe('createTransaction', () => {
     describe('and the amount exceeds the balance', () => {
       it('throws an error', () => {
-        expect(() => wallet.createTransaction( { amount: 999999, recipient: 'foo-recipient'}))
+        expect(() => wallet.createTransaction({ amount: 999999, recipient: 'foo-recipient' }))
           .toThrow('Amount exceeds balance');
       });
     });
@@ -54,11 +54,11 @@ describe('Wallet', () => {
 
       beforeEach(() => {
         amount = 50;
-        recipient= 'foo-recipient';
-        transaction = wallet.createTransaction({ amount, recipient});
+        recipient = 'foo-recipient';
+        transaction = wallet.createTransaction({ amount, recipient });
       });
 
-      it('create an instance of `Transaction`', () => {
+      it('creates an instance of `Transaction`', () => {
         expect(transaction instanceof Transaction).toBe(true);
       });
 
@@ -66,7 +66,7 @@ describe('Wallet', () => {
         expect(transaction.input.address).toEqual(wallet.publicKey);
       });
 
-      it('outputs the amount the recipient', () => {
+      it('outputs the amount to the recipient', () => {
         expect(transaction.outputMap[recipient]).toEqual(amount);
       });
     });

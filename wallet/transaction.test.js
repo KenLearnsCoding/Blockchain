@@ -41,7 +41,7 @@ describe('Transaction', () => {
 
     });
 
-    it('sets the `amount` to the `senderWawllet` balance', () => {
+    it('sets the `amount` to the `senderWallet` balance', () => {
       expect(transaction.input.amount).toEqual(senderWallet.balance);
     });
 

@@ -3,7 +3,7 @@ const express = require('express');
 const request = require('request');
 const Blockchain = require('./blockchain');
 const PubSub = require('./app/pubsub');
-const TransactionPool = require('./wallet/transaction-pool.js');
+const TransactionPool = require('./wallet/transaction-pool');
 const Wallet = require('./wallet');
 
 const app = express();
@@ -34,13 +34,25 @@ app.post('/api/mine', (req, res) => {
 app.post('/api/transact', (req, res) => {
   const { amount, recipient } = req.body;
 
-  const transaction = wallet.createTransaction({ recipient, amount });
+  let transaction = transactionPool
+    .existingTransaction({ inputAddress: wallet.publicKey });
+
+  try {
+    if (transaction) {
+      transaction.update({ senderWallet: wallet, recipient, amount });
+    } else {
+      transaction = wallet.createTransaction({ recipient, amount });
+    }
+  } catch(error) {
+    return res.status(400).json({ type: 'error', message: error.message });
+  }
 
   transactionPool.setTransaction(transaction);
 
   console.log('transactionPool', transactionPool);
 
-  res.json({ transaction });
+  res.json({ type: 'success', transaction });
+
 });
 
 const syncChains = () => {

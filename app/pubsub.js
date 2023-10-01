@@ -3,7 +3,7 @@ const redis = require('redis');
 const CHANNELS = {
   TEST: 'TEST',
   BLOCKCHAIN: 'BLOCKCHAIN',
-  TRANSACTION: 'TRANSACTION'
+  TRANSACTION: 'TRANSACTION',
 };
 
 class PubSub {
@@ -21,13 +21,20 @@ class PubSub {
       (channel, message) => this.handleMessage(channel, message)
     );
   }
+  
+  async init() {
+    // Connect to Redis... async/await/Promises not allowed
+    // in contstructor so do it here.
+    await this.publisher.connect();
+    await this.subscriber.connect();
+  }
 
   handleMessage(channel, message) {
     console.log(`Message received. Channel: ${channel}. Message: ${message}`);
 
     const parsedMessage = JSON.parse(message);
 
-    switch(channel) {
+    switch (channel) {
       case CHANNELS.BLOCKCHAIN:
         this.blockchain.replaceChain(parsedMessage);
         break;
@@ -40,32 +47,34 @@ class PubSub {
   }
 
   subscribeToChannels() {
-    Object.values(CHANNELS).forEach(channel => {
+    Object.values(CHANNELS).forEach((channel) => {
       this.subscriber.subscribe(channel);
     });
   }
 
-  publish({ channel, message}) {
+  publish({ channel, message }) {
     this.subscriber.unsubscribe(channel, () => {
-      this.publisher.publish(channel, message, () => {
+      this.publisher.publish(channel, message, (err) => {
         this.subscriber.subscribe(channel);
       });
     });
   }
 
   broadcastChain() {
+   
     this.publish({
       channel: CHANNELS.BLOCKCHAIN,
-      message: JSON.stringify(this.blockchain.chain)
+      message: JSON.stringify(this.blockchain.chain),
     });
   }
 
   broadcastTransaction(transaction) {
     this.publish({
       channel: CHANNELS.TRANSACTION,
-      message: JSON.stringify(transaction)
-    })
+      message: JSON.stringify(transaction),s
+    });
   }
 }
 
 module.exports = PubSub;
+

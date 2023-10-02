@@ -13,6 +13,8 @@ class PubSub {
 
     this.publisher = redis.createClient();
     this.subscriber = redis.createClient();
+    this.subscriber.connect();
+    this.publisher.connect();
 
     this.subscribeToChannels();
 
@@ -20,13 +22,14 @@ class PubSub {
       'message',
       (channel, message) => this.handleMessage(channel, message)
     );
-  }
-  
-  async init() {
-    // Connect to Redis... async/await/Promises not allowed
-    // in contstructor so do it here.
-    await this.publisher.connect();
-    await this.subscriber.connect();
+
+    this.subscriber.on('error', (error) => {
+      console.error('Subscriber error:', error);
+    });
+
+    this.publisher.on('error', (error) => {
+      console.error('Publisher error:', error);
+    });
   }
 
   handleMessage(channel, message) {
@@ -61,7 +64,6 @@ class PubSub {
   }
 
   broadcastChain() {
-   
     this.publish({
       channel: CHANNELS.BLOCKCHAIN,
       message: JSON.stringify(this.blockchain.chain),
@@ -71,7 +73,7 @@ class PubSub {
   broadcastTransaction(transaction) {
     this.publish({
       channel: CHANNELS.TRANSACTION,
-      message: JSON.stringify(transaction),s
+      message: JSON.stringify(transaction),
     });
   }
 }

@@ -1,18 +1,31 @@
 const redis = require('redis');
 
-console.log('Creating Redis client');
-const client = redis.createClient();
+const CHANNELS = {
+  TEST: 'TEST'
+};
 
-client.on('connect', () => {
-  console.log('Connected to Redis server');
-});
+class PubSub {
+  constructor() {
+    this.publisher = redis.createClient();
+    this.subscriber = redis.createClient();
+  }
 
-client.on('error', (err) => {
-  console.error(`Error connecting to Redis server: ${err}`);
-});
+  async init() {
+    // Connect to Redis... async/await/Promises not allowed
+    // in contstructor so do it here.
+    await this.publisher.connect();
+    await this.subscriber.connect();
 
-console.log('Redis client created');
+    this.subscriber.subscribe(CHANNELS.TEST, (message, channel) => {
+        console.log(`Channel: ${channel}`);
+        console.log(`Message: ${message}`);
+    });
+  }
+}
 
-// Rest of your code
-
-// lskdjfkal.js
+const testPubSub = new PubSub();
+testPubSub.init();
+setInterval(() => {
+  testPubSub.publisher.publish(CHANNELS.TEST, 'foo');
+  console.log('Published...');
+}, 1000);

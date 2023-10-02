@@ -16,8 +16,9 @@ const DEFAULT_PORT = 3000;
 const ROOT_NODE_ADDRESS = `http://localhost:${DEFAULT_PORT}`;
 
 app.use(bodyParser.json());
-pubsub.init();
-console.log(pubsub.broadcastChain());
+
+pubsub.broadcastChain();
+console.log('Broadcasting blockchain...');
 
 app.get('/api/blocks', (req, res) => {
   res.json(blockchain.chain);

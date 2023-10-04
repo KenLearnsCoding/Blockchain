@@ -13,10 +13,18 @@ class PubSub {
 
     this.publisher = redis.createClient();
     this.subscriber = redis.createClient();
-    this.subscriber.connect();
-    this.publisher.connect();
+    // this.subscriber.connect();
+    // this.publisher.connect();
 
     this.subscribeToChannels();
+    this.publisher.on('connect', () => {
+      console.log('Publisher connected to Redis');
+    });
+    
+    this.subscriber.on('connect', () => {
+      console.log('Subscriber connected to Redis');
+    });
+    
 
     this.subscriber.on(
       'message',
@@ -62,11 +70,14 @@ class PubSub {
       });
     });
   }
+ 
+  
 
   broadcastChain() {
+    console.log('Broadcasting blockchain. Chain:', this.blockchain.chain);
     this.publish({
       channel: CHANNELS.BLOCKCHAIN,
-      message: JSON.stringify(this.blockchain.chain),
+      message: JSON.stringify(this.blockchain.chain)
     });
   }
 
@@ -75,8 +86,10 @@ class PubSub {
       channel: CHANNELS.TRANSACTION,
       message: JSON.stringify(transaction),
     });
+
   }
 }
+
 
 module.exports = PubSub;
 

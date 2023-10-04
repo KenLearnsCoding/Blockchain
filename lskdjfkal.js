@@ -1,31 +1,67 @@
-const redis = require('redis');
+const uuid = require('uuid/v1');
+const { verifySignature } = require('../util');
 
-const CHANNELS = {
-  TEST: 'TEST'
-};
-
-class PubSub {
-  constructor() {
-    this.publisher = redis.createClient();
-    this.subscriber = redis.createClient();
+class Transaction {
+  constructor({ senderWallet, recipient, amount }) {
+    this.id = uuid();
+    this.outputMap = this.createOutputMap({ senderWallet, recipient, amount });
+    this.input = this.createInput({ senderWallet, outputMap: this.outputMap });
   }
 
-  async init() {
-    // Connect to Redis... async/await/Promises not allowed
-    // in contstructor so do it here.
-    await this.publisher.connect();
-    await this.subscriber.connect();
+  createOutputMap({ senderWallet, recipient, amount }) {
+    const outputMap = {};
 
-    this.subscriber.subscribe(CHANNELS.TEST, (message, channel) => {
-        console.log(`Channel: ${channel}`);
-        console.log(`Message: ${message}`);
-    });
+    outputMap[recipient] = amount;
+    outputMap[senderWallet.publicKey] = senderWallet.balance - amount;
+
+    return outputMap;
+  }
+
+  createInput({ senderWallet, outputMap }) {
+    return {
+      timestamp: Date.now(),
+      amount: senderWallet.balance,
+      address: senderWallet.publicKey,
+      signature: senderWallet.sign(outputMap)
+    };
+  }
+
+  update({ senderWallet, recipient, amount }) {
+    if (amount > this.outputMap[senderWallet.publicKey]) {
+      throw new Error('Amount exceeds balance');
+    }
+
+    if (!this.outputMap[recipient]) {
+      this.outputMap[recipient] = amount;
+    } else {
+      this.outputMap[recipient] = this.outputMap[recipient] + amount;
+    }
+
+    this.outputMap[senderWallet.publicKey] =
+      this.outputMap[senderWallet.publicKey] - amount;
+
+    this.input = this.createInput({ senderWallet, outputMap: this.outputMap });
+  }
+
+  static validTransaction(transaction) {
+    const { input: { address, amount, signature }, outputMap } = transaction;
+
+    const outputTotal = Object.values(outputMap)
+      .reduce((total, outputAmount) => total + outputAmount);
+
+    if (amount !== outputTotal) {
+      console.error(`Invalid transaction from ${address}`);
+
+      return false;
+    }
+
+    if (!verifySignature({ publicKey: address, data: outputMap, signature })) {
+      console.error(`Invalid signature from ${address}`);
+      return false;
+    }
+
+    return true;
   }
 }
 
-const testPubSub = new PubSub();
-testPubSub.init();
-setInterval(() => {
-  testPubSub.publisher.publish(CHANNELS.TEST, 'foo');
-  console.log('Published...');
-}, 1000);
+module.exports = Transaction;

@@ -59,6 +59,8 @@ class Transaction {
     }
     return true;
   }
+
+  static reward
 }
 
 module.exports = Transaction;

@@ -1,9 +1,9 @@
-const uuid = require('uuid/v1');
+const { v4: uuidv4 } = require('uuid');
 const { verifySignature } = require('../util');
 
 class Transaction {
   constructor({ senderWallet, recipient, amount }) {
-    this.id = uuid();
+    this.id = uuidv4(); // Generate a unique transactionId for each transaction
     this.outputMap = this.createOutputMap({ senderWallet, recipient, amount });
     this.input = this.createInput({ senderWallet, outputMap: this.outputMap });
   }
@@ -39,7 +39,6 @@ class Transaction {
 
     this.outputMap[senderWallet.publicKey] =
       this.outputMap[senderWallet.publicKey] - amount;
-
     this.input = this.createInput({ senderWallet, outputMap: this.outputMap });
   }
 
@@ -51,7 +50,6 @@ class Transaction {
 
     if (amount !== outputTotal) {
       console.error(`Invalid transaction from ${address}`);
-
       return false;
     }
 
@@ -59,7 +57,6 @@ class Transaction {
       console.error(`Invalid signature from ${address}`);
       return false;
     }
-
     return true;
   }
 }

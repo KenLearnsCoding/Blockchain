@@ -1,14 +1,9 @@
 const { v4: uuidv4 } = require('uuid');
-const transactionId = uuidv4();
-const  { verifySignature } = require('../util');
-
-
-console.log(transactionId);
-
+const { verifySignature } = require('../util');
 
 class Transaction {
   constructor({ senderWallet, recipient, amount }) {
-    this.id = transactionId;
+    this.id = uuidv4();
     this.outputMap = this.createOutputMap({ senderWallet, recipient, amount });
     this.input = this.createInput({ senderWallet, outputMap: this.outputMap });
   }

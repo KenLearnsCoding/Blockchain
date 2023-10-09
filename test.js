@@ -1,7 +1,8 @@
 const redis = require('redis');
 
 const CHANNELS = {
-    TEST: 'TEST'
+    TEST: 'TEST', 
+    BLOCKCHAIN: 'BLOCKCHAIN'
 };
 
 class PubSub {
@@ -14,12 +15,21 @@ class PubSub {
     async init() {
         await this.publisher.connect()
         await this.subscriber.connect()
-        await this.subscriber.subscribe(CHANNELS.TEST, this.handleMessage)
+
+        // this.subscribeToChannels();
+        // await this.subscriber.subscribe(CHANNELS.TEST, this.handleMessage)
+        await this.subscriber.subscribe(Object.values(CHANNELS), this.handleMessage);
     }
-    handleMessage(message, channel) {
+    handleMessage(channel, message){
         console.log(`Message received. Channel: ${channel}. Message: ${message}`);
         process.exit(0)
     }
+
+    // subscribeToChannels() {
+    //   Object.values(CHANNELS).forEach(channel => {
+    //     this.subscriber.subscribe(channel, this.handleMessage);
+    //   });
+    // }
 
 }
 const testPubSub = new PubSub();

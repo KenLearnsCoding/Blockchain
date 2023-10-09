@@ -1,31 +1,26 @@
 const redis = require('redis');
 
 const CHANNELS = {
-  TEST: 'TEST'
+    TEST: 'TEST'
 };
 
 class PubSub {
-  constructor() {
-    this.publisher = redis.createClient();
-    this.subscriber = redis.createClient();
-  }
+    constructor() {
+        this.publisher = redis.createClient();
+        this.subscriber = this.publisher.duplicate()
+        this.init()
+    }
 
-  async init() {
-    // Connect to Redis... async/await/Promises not allowed
-    // in contstructor so do it here.
-    await this.publisher.connect();
-    await this.subscriber.connect();
+    async init() {
+        await this.publisher.connect()
+        await this.subscriber.connect()
+        await this.subscriber.subscribe(CHANNELS.TEST, this.handleMessage)
+    }
+    handleMessage(message, channel) {
+        console.log(`Message received. Channel: ${channel}. Message: ${message}`);
+        process.exit(0)
+    }
 
-    this.subscriber.subscribe(CHANNELS.TEST, (message, channel) => {
-        console.log(`Channel: ${channel}`);
-        console.log(`Message: ${message}`);
-    });
-  }
 }
-
 const testPubSub = new PubSub();
-testPubSub.init();
-setInterval(() => {
-  testPubSub.publisher.publish(CHANNELS.TEST, 'foo');
-  console.log('Published...');
-}, 1000);
+setTimeout(() => {testPubSub.publisher.publish(CHANNELS.TEST, 'foo');}, 1000);

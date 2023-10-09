@@ -13,13 +13,13 @@ class PubSub {
 
     this.publisher = redis.createClient();
     this.subscriber = redis.createClient();
-
+    this.init();
   }
 
   async init() {
-    // Connect to Redis using the connect() method
     await this.publisher.connect();
     await this.subscriber.connect();
+
     this.subscribeToChannels();
 
     this.subscriber.on(
@@ -74,8 +74,9 @@ class PubSub {
     this.publish({
       channel: CHANNELS.TRANSACTION,
       message: JSON.stringify(transaction)
-    })
+    });
   }
 }
 
 module.exports = PubSub;
+

@@ -7,9 +7,9 @@ const CHANNELS = {
 };
 
 class PubSub {
-  constructor({ blockchain, transactionpool }) {
+  constructor({ blockchain, transactionPool }) {
     this.blockchain = blockchain;
-    this.transactionPool = transactionpool;
+    this.transactionPool = transactionPool;
 
     this.publisher = redis.createClient();
     this.subscriber = redis.createClient();
@@ -17,17 +17,10 @@ class PubSub {
   }
 
   async init() {
-    await this.publisher.connect();
-    await this.subscriber.connect();
-
-    this.subscribeToChannels();
-
-    this.subscriber.on(
-      'message',
-      (channel, message) => this.handleMessage(channel, message)
-    );
+      await this.publisher.connect()
+      await this.subscriber.connect()
+      this.subscribeToChannels();
   }
-
   handleMessage(channel, message) {
     console.log(`Message received. Channel: ${channel}. Message: ${message}`);
 
@@ -47,18 +40,15 @@ class PubSub {
 
   subscribeToChannels() {
     Object.values(CHANNELS).forEach(channel => {
-      this.subscriber.subscribe(channel);
+      this.subscriber.subscribe(channel, (channel, message) => {
+        this.handleMessage(channel, message)});
     });
   }
 
-  publish({ channel, message }) {
+  publish({ channel, message}) {
     this.subscriber.unsubscribe(channel, () => {
-      this.publisher.publish(channel, message, (error) => {
-        if (error) {
-          console.error('Error publishing message to Redis:', error);
-        } else {
-          this.subscriber.subscribe(channel);
-        }
+      this.publisher.publish(channel, message, () => {
+        this.subscriber.subscribe(channel);
       });
     });
   }
@@ -74,9 +64,8 @@ class PubSub {
     this.publish({
       channel: CHANNELS.TRANSACTION,
       message: JSON.stringify(transaction)
-    });
+    })
   }
 }
 
 module.exports = PubSub;
-

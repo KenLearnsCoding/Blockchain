@@ -1,14 +1,17 @@
 const redis = require('redis');
 
+
 const CHANNELS = {
     TEST: 'TEST', 
     BLOCKCHAIN: 'BLOCKCHAIN'
 };
 
 class PubSub {
-    constructor() {
+    constructor({ blockchain }) {
+        this.blockchain = blockchain;
+
         this.publisher = redis.createClient();
-        this.subscriber = this.publisher.duplicate()
+        this.subscriber = redis.createClient();
         this.init()
     }
 
@@ -16,21 +19,37 @@ class PubSub {
         await this.publisher.connect()
         await this.subscriber.connect()
 
-        // this.subscribeToChannels();
-        // await this.subscriber.subscribe(CHANNELS.TEST, this.handleMessage)
-        await this.subscriber.subscribe(Object.values(CHANNELS), this.handleMessage);
+        this.subscribeToChannels();
+        // await this.subscriber.subscribe(Object.values(CHANNELS), this.handleMessage);
     }
     handleMessage(channel, message){
-        console.log(`Message received. Channel: ${channel}. Message: ${message}`);
-        process.exit(0)
+        console.log(`Message received. Channel: ${message}. Message: ${channel}`);
+
+        const parsedMessage = JSON.parse(message);
+
+        if (channel === CHANNELS.BLOCKCHAIN) {
+          this.blockchain.replaceChain(parsedMessage);
+        }
     }
 
-    // subscribeToChannels() {
-    //   Object.values(CHANNELS).forEach(channel => {
-    //     this.subscriber.subscribe(channel, this.handleMessage);
-    //   });
-    // }
+    subscribeToChannels() {
+      Object.values(CHANNELS).forEach(channel => {
+        this.subscriber.subscribe(channel, (channel, message) => {
+          this.handleMessage(channel, message)});
+      });
+    }
+
+    publish({ channel, message }) {
+      this.publisher.publish(channel, message);
+    };
+
+    broadcastChain() {
+      this.publish({
+        channel: CHANNELS.BLOCKCHAIN,
+        message: JSON.stringify(this.blockchain.chain)
+      });
+    }
 
 }
-const testPubSub = new PubSub();
-setTimeout(() => {testPubSub.publisher.publish(CHANNELS.TEST, 'foo');}, 1000);
+module.exports = PubSub;
+

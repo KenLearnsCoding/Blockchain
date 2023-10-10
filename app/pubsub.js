@@ -13,22 +13,29 @@ class PubSub {
 
     this.publisher = redis.createClient();
     this.subscriber = redis.createClient();
-    this.init();
+    this.init()
   }
 
   async init() {
       await this.publisher.connect()
       await this.subscriber.connect()
+
       this.subscribeToChannels();
+      // await this.subscriber.subscribe(Object.values(CHANNELS), this.handleMessage);
   }
-  handleMessage(channel, message) {
+
+  handleMessage(message, channel) {
     console.log(`Message received. Channel: ${channel}. Message: ${message}`);
 
     const parsedMessage = JSON.parse(message);
 
     switch(channel) {
       case CHANNELS.BLOCKCHAIN:
-        this.blockchain.replaceChain(parsedMessage);
+        this.blockchain.replaceChain(parsedMessage, () => {
+          this.transactionPool.clearBlockchainTransactions({
+             chain: parsedMessage
+          });
+        });
         break;
       case CHANNELS.TRANSACTION:
         this.transactionPool.setTransaction(parsedMessage);
@@ -40,8 +47,8 @@ class PubSub {
 
   subscribeToChannels() {
     Object.values(CHANNELS).forEach(channel => {
-      this.subscriber.subscribe(channel, (channel, message) => {
-        this.handleMessage(channel, message)});
+      this.subscriber.subscribe(channel, (message, channel) => {
+        this.handleMessage(message, channel)});
     });
   }
 

@@ -34,8 +34,7 @@ class PubSub {
 
     subscribeToChannels() {
       Object.values(CHANNELS).forEach(channel => {
-        this.subscriber.subscribe(channel, (channel, message) => {
-          this.handleMessage(channel, message)});
+        this.subscriber.subscribe(channel, this.handleMessage)
       });
     }
 

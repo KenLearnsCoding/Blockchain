@@ -3,7 +3,6 @@ const express = require('express');
 const request = require('request');
 const Blockchain = require('./blockchain');
 const PubSub = require('./app/pubsub');
-// const PUBSUB = require('./test');
 const TransactionPool = require('./wallet/transaction-pool');
 const Wallet = require('./wallet');
 const TransactionMiner = require('./app/transaction-miner');
@@ -13,10 +12,7 @@ const blockchain = new Blockchain();
 const transactionPool = new TransactionPool();
 const wallet = new Wallet();
 const pubsub = new PubSub({ blockchain, transactionPool });
-// const pubsub = new PUBSUB({ blockchain});
-
 const transactionMiner = new TransactionMiner({ blockchain, transactionPool, wallet, pubsub });
-console.log(pubsub.broadcastChain());
 const DEFAULT_PORT = 3000;
 const ROOT_NODE_ADDRESS = `http://localhost:${DEFAULT_PORT}`;
 

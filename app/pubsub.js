@@ -21,7 +21,6 @@ class PubSub {
       await this.subscriber.connect()
 
       this.subscribeToChannels();
-      // await this.subscriber.subscribe(Object.values(CHANNELS), this.handleMessage);
   }
 
   handleMessage(message, channel) {
@@ -52,14 +51,17 @@ class PubSub {
     });
   }
 
+  // publish({ message, channel}) {
+  //   this.subscriber.unsubscribe(channel, () => {
+  //     this.publisher.publish(channel, message, () => {
+  //       this.subscriber.subscribe(channel);
+  //     });
+  //   });
+  // }
   publish({ channel, message}) {
-    this.subscriber.unsubscribe(channel, () => {
-      this.publisher.publish(channel, message, () => {
-        this.subscriber.subscribe(channel);
-      });
-    });
+    this.publisher.publish(channel, message);
   }
-
+  
   broadcastChain() {
     this.publish({
       channel: CHANNELS.BLOCKCHAIN,
@@ -76,3 +78,5 @@ class PubSub {
 }
 
 module.exports = PubSub;
+
+

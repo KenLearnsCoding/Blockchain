@@ -17,7 +17,7 @@ class Wallet {
 
   createTransaction({ recipient, amount, chain }) {
     if (chain) {
-      this.balance  = Wallet.calculateBalance({
+      this.balance = Wallet.calculateBalance({
         chain, 
         address: this.publicKey
       });
@@ -31,7 +31,7 @@ class Wallet {
   }
 
   static calculateBalance({ chain, address }) {
-    let hashConductedTransaction = false;
+    let hasConductedTransaction = false;
     let outputsTotal = 0;
 
     for (let i=chain.length-1; i>0; i--) {
@@ -39,7 +39,7 @@ class Wallet {
 
       for (let transaction of block.data) {
         if (transaction.input.address === address) {
-          hashConductedTransaction = true;
+          hasConductedTransaction = true;
         }
 
         const addressOutput = transaction.outputMap[address];
@@ -49,13 +49,13 @@ class Wallet {
         }
       }
 
-      if (hashConductedTransaction) {
+      if (hasConductedTransaction) {
         break;
       }
     }
 
-    return hashConductedTransaction  ? outputsTotal : STARTING_BALANCE + outputsTotal;
+    return hasConductedTransaction ? outputsTotal : STARTING_BALANCE + outputsTotal;
   }
-};
+}
 
 module.exports = Wallet;

@@ -75,7 +75,7 @@ app.get('/api/wallet-info', (req, res) => {
 
   res.json({
     address, 
-    balance: Wallet.calculateBalance({ chain: blockchain.chain, address: wallet.publicKey })
+    balance: Wallet.calculateBalance({ chain: blockchain.chain, address })
   });
 });
 

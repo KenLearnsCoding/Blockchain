@@ -2,14 +2,13 @@
   "name": "cryptochain_commits",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
   "scripts": {
     "test": "jest --watchAll",
     "start": "npm run build-client & node index.js",
     "dev": "npm run dev-client & cross-env ENV='development' nodemon index.js",
     "dev-peer": "cross-env GENERATE_PEER_PORT='true' ENV='development' nodemon index.js",
     "build-client": "npm run clean && parcel build client/src/index.html --dist-dir client/dist",
-    "dev-client": "npm run clean && parcel client/src/index.html --dist-dir client/dist",
+    "dev-client": "npm run clean && parcel client/src/index.html --dist-dir client/dist ",
     "clean": "rm -rf .cache client/dist"
   },
   "jest": {
@@ -19,6 +18,11 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@babel/plugin-proposal-class-properties": "^7.18.6",
+    "@babel/plugin-proposal-object-rest-spread": "^7.20.7",
+    "@babel/preset-env": "^7.23.6",
+    "@babel/preset-react": "^7.23.3",
+    "@parcel/babel-preset-env": "^2.10.3",
     "cross-env": "^7.0.3",
     "jest": "^29.7.0",
     "nodemon": "^3.0.1",
@@ -26,7 +30,11 @@
     "ws": "^8.16.0"
   },
   "dependencies": {
+    "@babel/core": "^7.23.6",
     "babel-jest": "^29.7.0",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
     "body-parser": "^1.20.2",
     "elliptic": "^6.5.4",
     "express": "^4.16.3",

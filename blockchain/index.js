@@ -39,7 +39,7 @@ class Blockchain {
     this.chain = chain;
   }
 
-  validTransactionData({ chain}) {
+  validTransactionData({ chain }) {
     for (let i=1; i<chain.length; i++) {
       const block = chain[i];
       const transactionSet = new Set();
@@ -49,15 +49,11 @@ class Blockchain {
         if (transaction.input.address === REWARD_INPUT.address) {
           rewardTransactionCount += 1;
 
-          if(rewardTransactionCount > 1) {
+          if  (rewardTransactionCount > 1) {
             console.error('Miner rewards exceed limit');
             return false;
           }
 
-          // if (Object.values(transaction.outputMap['foo-bar'])[0] !== MINING_REWARD) {
-          //   console.error('Miner reward amount is invalid');
-          //   return false;
-          // }
           if (Object.values(transaction.outputMap)[0] !== MINING_REWARD) {
             console.error('Miner reward amount is invalid');
             return false;

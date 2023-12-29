@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Blocks from 'Blocks'
+import Blocks from './Blocks';
 
 class App extends Component {
     state = { walletInfo: {}};

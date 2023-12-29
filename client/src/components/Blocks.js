@@ -17,14 +17,21 @@ class Blocks extends Component {
         return (
             <div>
                 <h3>Blocks</h3>
-                {this.state.blocks.map((block, index) => (
+                {/* {this.state.blocks.map((block, index) => (
                     <div key={index}>
                         <p>Block data: {JSON.stringify(block)}</p>
                     </div>
-                ))}
+                ))} */}
+                { 
+                    this.state.blocks.map(block => {
+                        return (
+                            <div key={block.hash}>{block.hash}</div>
+                        )
+                    })
+                }
             </div>
         )
-    }
+    } 
 }
 
 export default Blocks;

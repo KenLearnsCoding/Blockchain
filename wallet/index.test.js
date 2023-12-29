@@ -130,16 +130,16 @@ describe('Wallet', () => {
       });
 
       it('adds the sum of all outputs to the wallet balance', () => {
-        expect(
-          Wallet.calculateBalance({
-            chain: blockchain.chain, 
-            address: wallet.publicKey
-          })
-        ).toEqual(
-          STARTING_BALANCE +
-          transactionOne.outputMap[wallet.publicKey] +
-          transactionTwo.outputMap[wallet.publicKey]
-        );
+          expect(
+            Wallet.calculateBalance({
+              chain: blockchain.chain, 
+              address: wallet.publicKey
+            })
+          ).toEqual(
+            STARTING_BALANCE +
+            transactionOne.outputMap[wallet.publicKey] +
+            transactionTwo.outputMap[wallet.publicKey]
+          );
       });
 
       describe('and the wallet has made a transaction', () => {

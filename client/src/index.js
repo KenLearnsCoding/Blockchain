@@ -2,6 +2,7 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import App from './components/App';
+import './components/index.css';
 
 // Using createRoot to create a root for rendering, passing the target root element
 const root = createRoot(document.getElementById('root'));

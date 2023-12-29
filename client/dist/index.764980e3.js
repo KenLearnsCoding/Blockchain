@@ -2950,12 +2950,13 @@ var _reactDefault = parcelHelpers.interopDefault(_react);
 var _client = require("react-dom/client");
 var _app = require("./components/App");
 var _appDefault = parcelHelpers.interopDefault(_app);
+var _indexCss = require("./components/index.css");
 // Using createRoot to create a root for rendering, passing the target root element
 const root = (0, _client.createRoot)(document.getElementById("root"));
 // Rendering a React component (JSX syntax) inside the root using the render method
 root.render(/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _appDefault.default), {}, void 0, false, {
     fileName: "client/src/index.js",
-    lineNumber: 10,
+    lineNumber: 11,
     columnNumber: 13
 }, undefined));
 
@@ -2964,7 +2965,7 @@ root.render(/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _appDefault.default), {
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","react-dom/client":"lOjBx","./components/App":"ifYPa","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"iTorj":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","react-dom/client":"lOjBx","./components/App":"ifYPa","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","./components/index.css":"2v8Z8"}],"iTorj":[function(require,module,exports) {
 "use strict";
 module.exports = require("ee51401569654d91");
 
@@ -27165,6 +27166,8 @@ var _react = require("react");
 var _reactDefault = parcelHelpers.interopDefault(_react);
 var _blocks = require("./Blocks");
 var _blocksDefault = parcelHelpers.interopDefault(_blocks);
+var _logoPng = require("../asset/logo.png");
+var _logoPngDefault = parcelHelpers.interopDefault(_logoPng);
 function _defineProperty(obj, key, value) {
     key = _toPropertyKey(key);
     if (key in obj) Object.defineProperty(obj, key, {
@@ -27206,11 +27209,29 @@ class App extends (0, _react.Component) {
         const { address, balance } = this.state.walletInfo;
         return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
             children: [
+                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("img", {
+                    className: "logo",
+                    src: (0, _logoPngDefault.default)
+                }, void 0, false, {
+                    fileName: "client/src/components/App.js",
+                    lineNumber: 25,
+                    columnNumber: 17
+                }, this),
+                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("br", {}, void 0, false, {
+                    fileName: "client/src/components/App.js",
+                    lineNumber: 26,
+                    columnNumber: 17
+                }, this),
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
                     children: "Welcome to the blockchain..."
                 }, void 0, false, {
                     fileName: "client/src/components/App.js",
-                    lineNumber: 24,
+                    lineNumber: 27,
+                    columnNumber: 17
+                }, this),
+                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("br", {}, void 0, false, {
+                    fileName: "client/src/components/App.js",
+                    lineNumber: 30,
                     columnNumber: 17
                 }, this),
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
@@ -27220,7 +27241,7 @@ class App extends (0, _react.Component) {
                     ]
                 }, void 0, true, {
                     fileName: "client/src/components/App.js",
-                    lineNumber: 27,
+                    lineNumber: 31,
                     columnNumber: 17
                 }, this),
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
@@ -27230,23 +27251,23 @@ class App extends (0, _react.Component) {
                     ]
                 }, void 0, true, {
                     fileName: "client/src/components/App.js",
-                    lineNumber: 28,
+                    lineNumber: 32,
                     columnNumber: 17
                 }, this),
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("br", {}, void 0, false, {
                     fileName: "client/src/components/App.js",
-                    lineNumber: 29,
+                    lineNumber: 33,
                     columnNumber: 17
                 }, this),
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _blocksDefault.default), {}, void 0, false, {
                     fileName: "client/src/components/App.js",
-                    lineNumber: 30,
+                    lineNumber: 34,
                     columnNumber: 17
                 }, this)
             ]
         }, void 0, true, {
             fileName: "client/src/components/App.js",
-            lineNumber: 23,
+            lineNumber: 24,
             columnNumber: 12
         }, this);
     }
@@ -27258,7 +27279,7 @@ exports.default = App;
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","./Blocks":"gec3j","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"gec3j":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","./Blocks":"gec3j","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","../asset/logo.png":"fPTT6"}],"gec3j":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$e429 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
@@ -27512,6 +27533,44 @@ function registerExportsForReactRefresh(module1) {
     }
 }
 
-},{"7422ead32dcc1e6b":"786KC"}]},["deGzz","1xC6H","iXgNX"], "iXgNX", "parcelRequireb0ae")
+},{"7422ead32dcc1e6b":"786KC"}],"fPTT6":[function(require,module,exports) {
+module.exports = require("c2eb2d2c8f963280").getBundleURL("1jP1U") + "logo.470e437a.png" + "?" + Date.now();
+
+},{"c2eb2d2c8f963280":"lgJ39"}],"lgJ39":[function(require,module,exports) {
+"use strict";
+var bundleURL = {};
+function getBundleURLCached(id) {
+    var value = bundleURL[id];
+    if (!value) {
+        value = getBundleURL();
+        bundleURL[id] = value;
+    }
+    return value;
+}
+function getBundleURL() {
+    try {
+        throw new Error();
+    } catch (err) {
+        var matches = ("" + err.stack).match(/(https?|file|ftp|(chrome|moz|safari-web)-extension):\/\/[^)\n]+/g);
+        if (matches) // The first two stack frames will be this function and getBundleURLCached.
+        // Use the 3rd one, which will be a runtime in the original bundle.
+        return getBaseURL(matches[2]);
+    }
+    return "/";
+}
+function getBaseURL(url) {
+    return ("" + url).replace(/^((?:https?|file|ftp|(chrome|moz|safari-web)-extension):\/\/.+)\/[^/]+$/, "$1") + "/";
+}
+// TODO: Replace uses with `new URL(url).origin` when ie11 is no longer supported.
+function getOrigin(url) {
+    var matches = ("" + url).match(/(https?|file|ftp|(chrome|moz|safari-web)-extension):\/\/[^/]+/);
+    if (!matches) throw new Error("Origin not found");
+    return matches[0];
+}
+exports.getBundleURL = getBundleURLCached;
+exports.getBaseURL = getBaseURL;
+exports.getOrigin = getOrigin;
+
+},{}],"2v8Z8":[function() {},{}]},["deGzz","1xC6H","iXgNX"], "iXgNX", "parcelRequireb0ae")
 
 //# sourceMappingURL=index.764980e3.js.map

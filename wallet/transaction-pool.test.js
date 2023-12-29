@@ -80,7 +80,7 @@ describe('TransactionPool', () => {
     });
   });
 
-  describe('clearBlockchainTransaction()', () => {
+  describe('clearBlockchainTransactions()', () => {
     it('clears the pool of any existing blockchain transactions', () => {
       const blockchain = new Blockchain();
       const expectedTransactionMap = {};
@@ -93,13 +93,14 @@ describe('TransactionPool', () => {
         transactionPool.setTransaction(transaction);
 
         if (i%2===0) {
-          blockchain.addBlock({ data: [transaction] })
+          blockchain.addBlock({ data: [transaction] });
         } else {
           expectedTransactionMap[transaction.id] = transaction;
         }
       }
 
-      transactionPool.clearBlockchainTransaction({ chain: blockchain.chain});
+      transactionPool.clearBlockchainTransactions({ chain: blockchain.chain });
+
       expect(transactionPool.transactionMap).toEqual(expectedTransactionMap);
     });
   });

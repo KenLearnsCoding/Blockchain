@@ -27,9 +27,13 @@ body {
 
 .Block {
   border: 1px solid #fff;
-  width: 300px;
+  width: 1000px;
   height: auto;
   margin: 2%;
+  padding: 5%;
+}
+
+.Transaction {
   padding: 5%;
 }
 

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Blocks from './Blocks';
+
 import logo from '../asset/logo.png'
 
 class App extends Component {
@@ -27,7 +27,6 @@ class App extends Component {
                     <div>Balance: {balance}</div>
                 </div>
                 <br />
-                <Blocks />
             </div>
         );
     }

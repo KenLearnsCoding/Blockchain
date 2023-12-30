@@ -2,6 +2,7 @@
 
 import React, { Component } from 'react';
 import { Button } from 'react-bootstrap';
+import Transaction from './Transaction';
 
 class Block extends Component {
     state = { displayTransaction: false };
@@ -11,19 +12,30 @@ class Block extends Component {
     }
 
     get displayTransaction() {
+        // take data from http://localhost:2000/api/transact
         const { data } = this.props.block;
 
+        // convert data to string
         const stringifiedData = JSON.stringify(data);
 
+        // if the data is too long, display only the first 35 characters
         const dataDisplay = stringifiedData.length > 35 ?
-            `${stringifiedData.substring(0, 35)}...`:
+            `${stringifiedData.substring(0, 35)}...` :
             stringifiedData;
 
         // this is for the show less button
         if (this.state.displayTransaction) {
             return (
                 <div>
-                    {JSON.stringify(data)}
+                    {
+                        //This piece of code is used to render a list of Transaction components in React.
+                        data.map(transaction => (
+                            <div key={transaction.id}>
+                                <hr />
+                                <Transaction transaction={transaction} />
+                            </div>
+                        ))
+                    }
                     <br />
                     <Button 
                         bsStyle="danger" 
@@ -35,13 +47,13 @@ class Block extends Component {
                 </div>
             );
         }
-        
+
         // this is for the show more button
         return (
             <div>
                 Data: {dataDisplay}
                 <Button 
-                    bsStyle ="danger" 
+                    bsStyle="danger" 
                     bsSize="small" 
                     onClick={this.toggleTransaction}
                 >
@@ -52,11 +64,8 @@ class Block extends Component {
     }
 
     render() {
-        console.log('this.displayTransaction', this.displayTransaction);
-
-        const { timestamp, hash} = this.props.block;
-
-        const hashDisplay = `${hash.substring(0,15)}...`;
+        const { timestamp, hash } = this.props.block;
+        const hashDisplay = `${hash.substring(0, 15)}...`;
     
         return (
             <div className='Block'>
@@ -66,6 +75,6 @@ class Block extends Component {
             </div>
         )
     }
-};
+}
 
 export default Block;

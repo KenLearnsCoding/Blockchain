@@ -29,6 +29,10 @@ body {
     border: 1px solid #ffffff;
     padding: 5%;
     margin: 2%;
-    width: 300px;
+    width: 1000px;
     height: auto;
+  }
+
+  .Transaction {
+    padding: 5%;
   }

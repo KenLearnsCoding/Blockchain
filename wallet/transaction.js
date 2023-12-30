@@ -3,7 +3,7 @@ const { verifySignature } = require('../util');
 const { REWARD_INPUT, MINING_REWARD } = require('../config');
 
 class Transaction {
-  constructor({ senderWallet, recipient, amount, outputMap, input  }) {
+  constructor({ senderWallet, recipient, amount, outputMap, input }) {
     this.id = uuidv4();
     this.outputMap = outputMap || this.createOutputMap({ senderWallet, recipient, amount});
     this.input = input || this.createInput({ senderWallet, outputMap: this.outputMap });
@@ -63,8 +63,9 @@ class Transaction {
 
   static rewardTransaction({ minerWallet }) {
     return new this({
-      input: REWARD_INPUT, 
-      outputMap: {[minerWallet.publicKey]: MINING_REWARD }//want to use a variable for a key in js, just surround it with a bracket
+      input: REWARD_INPUT,
+
+      outputMap: { [minerWallet.publicKey]: MINING_REWARD }//want to use a variable for a key in js, just surround it with a bracket
     })
   }
 }

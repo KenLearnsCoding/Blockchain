@@ -41,6 +41,7 @@
     "npm": "^10.2.0",
     "parcel": "^2.10.3",
     "react": "^18.2.0",
+    "react-bootstrap": "^2.9.2",
     "react-dom": "^18.2.0",
     "redis": "^4.6.11",
     "request": "^2.88.2",

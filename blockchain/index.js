@@ -49,8 +49,8 @@ class Blockchain {
         if (transaction.input.address === REWARD_INPUT.address) {
           rewardTransactionCount += 1;
 
-          if  (rewardTransactionCount > 1) {
-            console.error('Miner rewards exceed limit');
+          if (rewardTransactionCount > 1) {
+            console.error('Miner rewards exceeds limit');
             return false;
           }
 
@@ -58,9 +58,8 @@ class Blockchain {
             console.error('Miner reward amount is invalid');
             return false;
           }
-
-        }else {
-          if(!Transaction.validTransaction(transaction)) {
+        } else {
+          if (!Transaction.validTransaction(transaction)) {
             console.error('Invalid transaction');
             return false;
           }
@@ -70,7 +69,7 @@ class Blockchain {
             address: transaction.input.address
           });
 
-          if(transaction.input.amount !== trueBalance) {
+          if (transaction.input.amount !== trueBalance) {
             console.error('Invalid input amount');
             return false;
           }

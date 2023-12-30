@@ -45,10 +45,10 @@ app.post('/api/transact', (req, res) => {
     if (transaction) {
       transaction.update({ senderWallet: wallet, recipient, amount });
     } else {
-      transaction = wallet.createTransaction({ 
-        recipient, 
-        amount, 
-        chain: blockchain.chain 
+      transaction = wallet.createTransaction({
+        recipient,
+        amount,
+        chain: blockchain.chain
       });
     }
   } catch(error) {
@@ -76,7 +76,7 @@ app.get('/api/wallet-info', (req, res) => {
   const address = wallet.publicKey;
 
   res.json({
-    address, 
+    address,
     balance: Wallet.calculateBalance({ chain: blockchain.chain, address })
   });
 });
@@ -142,7 +142,6 @@ for (let i=0; i<10; i++) {
 
   transactionMiner.mineTransactions();
 }
-
 
 let PEER_PORT;
 

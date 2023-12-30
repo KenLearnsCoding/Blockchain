@@ -1,4 +1,5 @@
 import React,  { Component } from 'react';
+import Block from './Block';
 
 // this blocks component will make a request to the  
 // blocks endpoint of the backend, which will return data of te blocks
@@ -17,20 +18,15 @@ class Blocks extends Component {
         return (
             <div>
                 <h3>Blocks</h3>
-                {/* {this.state.blocks.map((block, index) => (
-                    <div key={index}>
-                        <p>Block data: {JSON.stringify(block)}</p>
-                    </div>
-                ))} */}
                 { 
                     this.state.blocks.map(block => {
                         return (
-                            <div key={block.hash}>{block.hash}</div>
-                        )
+                            <Block key={block.hash} block={block} />
+                        );
                     })
                 }
             </div>
-        )
+        );
     } 
 }
 

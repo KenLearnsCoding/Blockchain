@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Block from './Block';
+import { Link } from 'react-router-dom';
 
 // this blocks component will make a request to the  
 // blocks endpoint of the backend, which will return data of te blocks
@@ -18,6 +19,7 @@ class Blocks extends Component {
     
         return (
             <div>
+                <div><Link to='/'>Home</Link></div>
                 <h3>Blocks</h3>
                 { 
                     this.state.blocks.map(block => {

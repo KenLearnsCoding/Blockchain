@@ -6,6 +6,7 @@ import history from './history';
 import App from './components/App';
 import Blocks from './components/Blocks';
 import './components/index.css';
+import ConductTransaction from './components/conductTransaction';
 
 // Using createRoot to create a root for rendering, passing the target root element
 const root = createRoot(document.getElementById('root'));
@@ -16,10 +17,12 @@ root.render(
   // components based on the current URL path.
   <Router history = {history}>
     <Routes>
-      <Route path='/' element = {<App />} />
+      <Route exact={true} path='/' element = {<App />} />
       <Route path='/blocks' element = {<Blocks />} />
+      <Route path='/conduct-transaction' element = {<ConductTransaction />} />
     </Routes>
   </Router>
+  
 );
 
 

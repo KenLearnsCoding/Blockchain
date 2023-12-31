@@ -1,8 +1,8 @@
 body {
-  color: #bbadad;
+  color: #fff;
   text-align: center;
   word-wrap: break-word;
-  background-color: #794a4a;
+  background-color: #444;
   padding-top: 5%;
   font-family: Quicksand;
   font-size: 20px;
@@ -10,12 +10,10 @@ body {
 
 .logo {
   width: 250px;
-  height: auto;
+  height: 250px;
 }
 
 .App {
-  color: #fff;
-  background-color: #00a399;
   flex-direction: column;
   align-items: center;
   display: flex;
@@ -27,14 +25,18 @@ body {
 
 .Block {
   border: 1px solid #fff;
-  width: 1000px;
-  height: auto;
   margin: 2%;
   padding: 5%;
 }
 
-.Transaction {
+.ConductTransaction {
+  margin: 10%;
   padding: 5%;
+}
+
+a, a:hover {
+  color: #e66;
+  text-decoration: underline;
 }
 
 /*# sourceMappingURL=index.7f1e2dce.css.map */

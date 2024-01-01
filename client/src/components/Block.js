@@ -45,7 +45,7 @@ class Block extends Component {
                         Show Less
                     </Button>
                 </div>
-            );
+            )
         }
 
         // this is for the show more button

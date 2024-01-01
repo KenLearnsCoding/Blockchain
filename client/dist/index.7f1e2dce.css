@@ -34,6 +34,10 @@ body {
   padding: 5%;
 }
 
+.form-control {
+  margin: 10px 0;
+}
+
 a, a:hover {
   color: #e66;
   text-decoration: underline;

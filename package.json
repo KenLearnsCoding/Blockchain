@@ -41,11 +41,11 @@
     "i": "^0.3.7",
     "npm": "^10.2.0",
     "parcel": "^2.10.3",
+    "pubnub": "^7.4.5",
     "react": "^18.2.0",
     "react-bootstrap": "^2.9.2",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.21.1",
-    "redis": "^4.6.11",
     "request": "^2.88.2",
     "uuid": "^9.0.1",
     "websocket": "^1.0.34"

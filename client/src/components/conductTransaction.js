@@ -1,6 +1,7 @@
-import React,  {Component} from 'react';
-import { FormGroup, FormControl } from 'react-bootstrap';
+import React, { Component } from 'react';
+import { FormGroup, FormControl, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import history from '../history';
 
 
 class ConductTransaction extends Component {
@@ -16,9 +17,22 @@ class ConductTransaction extends Component {
         this.setState({ amount: Number(event.target.value) });
     }
 
-    render(){
-        console.log('this.state', this.state);
+    // call the api to send the transaction
+    conductTransaction = () => {
+        const { recipient, amount } = this.state;
+        // ${document.location.origin} will turn whatever url is to the localhost:2000 always
+        fetch(`${document.location.origin}/api/transact`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ recipient, amount })
+        }).then(response => response.json())
+          .then(json => {
+            alert(json.message || json.type);
+            history.push('/transaction-pool');
+          });
+    }
 
+    render() {
         return (
             <div className='ConductTransaction'>
                 <Link to='/'>Home</Link>
@@ -40,9 +54,19 @@ class ConductTransaction extends Component {
                         onChange={this.updateAmount}
                     />
                 </FormGroup>
+
+                {/* creat button in the react component */}
+                <div>
+                    <Button 
+                        bsStyle="danger"
+                        onClick={this.conductTransaction}
+                    >
+                        Submit
+                    </Button>
+                </div>
             </div>
         )
     } 
-};
+}
 
 export default ConductTransaction;

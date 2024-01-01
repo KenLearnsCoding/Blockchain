@@ -9,6 +9,7 @@ class Blocks extends Component {
 
     // fetch data from http://localhost:2000/api/blocks
     componentDidMount() {
+        // ${document.location.origin} will turn whatever url is to the localhost:2000 always
         fetch('http://localhost:2000/api/blocks')
             .then(response => response.json())
             .then(json => this.setState({ blocks: json }));

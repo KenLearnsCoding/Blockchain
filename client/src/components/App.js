@@ -7,7 +7,8 @@ class App extends Component {
     state = { walletInfo: {}};
 
     componentDidMount() {
-        fetch('http://localhost:2000/api/wallet-info')
+        // ${document.location.origin} will turn whatever url is to the localhost:2000 always
+        fetch(`${document.location.origin}/api/wallet-info`)
             .then(response => response.json())
             .then(json => this.setState({ walletInfo: json}));
 
@@ -25,6 +26,7 @@ class App extends Component {
                 <br />
                 <div><Link to='/blocks'>Blocks</Link></div>
                 <div><Link to='/conduct-transaction'>Conduct a Transaction</Link></div>
+                <div><Link to='/transaction-pool'>Transaction Pool</Link></div>
                 <br />
                 <div className='WalletInfo'>
                     <div>Address: {address}</div>

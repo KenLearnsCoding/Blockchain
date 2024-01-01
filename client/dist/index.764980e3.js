@@ -2958,6 +2958,8 @@ var _blocksDefault = parcelHelpers.interopDefault(_blocks);
 var _indexCss = require("./components/index.css");
 var _conductTransaction = require("./components/conductTransaction");
 var _conductTransactionDefault = parcelHelpers.interopDefault(_conductTransaction);
+var _transactionPool = require("./components/TransactionPool");
+var _transactionPoolDefault = parcelHelpers.interopDefault(_transactionPool);
 // Using createRoot to create a root for rendering, passing the target root element
 const root = (0, _client.createRoot)(document.getElementById("root"));
 // Rendering a React component (JSX syntax) inside the root using the render method
@@ -2973,7 +2975,7 @@ root.render(// This code is using React Router, a standard library for routing i
                 element: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _appDefault.default), {}, void 0, false, void 0, void 0)
             }, void 0, false, {
                 fileName: "client/src/index.js",
-                lineNumber: 20,
+                lineNumber: 21,
                 columnNumber: 7
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
@@ -2981,7 +2983,7 @@ root.render(// This code is using React Router, a standard library for routing i
                 element: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _blocksDefault.default), {}, void 0, false, void 0, void 0)
             }, void 0, false, {
                 fileName: "client/src/index.js",
-                lineNumber: 21,
+                lineNumber: 22,
                 columnNumber: 7
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
@@ -2989,18 +2991,26 @@ root.render(// This code is using React Router, a standard library for routing i
                 element: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _conductTransactionDefault.default), {}, void 0, false, void 0, void 0)
             }, void 0, false, {
                 fileName: "client/src/index.js",
-                lineNumber: 22,
+                lineNumber: 23,
+                columnNumber: 7
+            }, undefined),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
+                path: "/transaction-pool",
+                element: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _transactionPoolDefault.default), {}, void 0, false, void 0, void 0)
+            }, void 0, false, {
+                fileName: "client/src/index.js",
+                lineNumber: 24,
                 columnNumber: 7
             }, undefined)
         ]
     }, void 0, true, {
         fileName: "client/src/index.js",
-        lineNumber: 19,
+        lineNumber: 20,
         columnNumber: 5
     }, undefined)
 }, void 0, false, {
     fileName: "client/src/index.js",
-    lineNumber: 18,
+    lineNumber: 19,
     columnNumber: 1
 }, undefined));
 
@@ -3009,7 +3019,7 @@ root.render(// This code is using React Router, a standard library for routing i
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","react-dom/client":"lOjBx","./history":"fxKik","./components/App":"ifYPa","./components/Blocks":"gec3j","./components/index.css":"2v8Z8","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","react-router-dom":"9xmpe","./components/conductTransaction":"8Gneo"}],"iTorj":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","react-dom/client":"lOjBx","./history":"fxKik","./components/App":"ifYPa","./components/Blocks":"gec3j","./components/index.css":"2v8Z8","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","react-router-dom":"9xmpe","./components/conductTransaction":"8Gneo","./components/TransactionPool":"5ye4f"}],"iTorj":[function(require,module,exports) {
 "use strict";
 module.exports = require("ee51401569654d91");
 
@@ -27202,7 +27212,37 @@ parcelHelpers.defineInteropFlag(exports);
 var _history = require("history");
 exports.default = (0, _history.createBrowserHistory)();
 
-},{"history":"iE5Zp","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"iE5Zp":[function(require,module,exports) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","history":"iE5Zp"}],"gkKU3":[function(require,module,exports) {
+exports.interopDefault = function(a) {
+    return a && a.__esModule ? a : {
+        default: a
+    };
+};
+exports.defineInteropFlag = function(a) {
+    Object.defineProperty(a, "__esModule", {
+        value: true
+    });
+};
+exports.exportAll = function(source, dest) {
+    Object.keys(source).forEach(function(key) {
+        if (key === "default" || key === "__esModule" || Object.prototype.hasOwnProperty.call(dest, key)) return;
+        Object.defineProperty(dest, key, {
+            enumerable: true,
+            get: function() {
+                return source[key];
+            }
+        });
+    });
+    return dest;
+};
+exports.export = function(dest, destName, get) {
+    Object.defineProperty(dest, destName, {
+        enumerable: true,
+        get: get
+    });
+};
+
+},{}],"iE5Zp":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "Action", ()=>Action);
@@ -27822,37 +27862,7 @@ function _extends() {
     return _extends.apply(this, arguments);
 }
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"gkKU3":[function(require,module,exports) {
-exports.interopDefault = function(a) {
-    return a && a.__esModule ? a : {
-        default: a
-    };
-};
-exports.defineInteropFlag = function(a) {
-    Object.defineProperty(a, "__esModule", {
-        value: true
-    });
-};
-exports.exportAll = function(source, dest) {
-    Object.keys(source).forEach(function(key) {
-        if (key === "default" || key === "__esModule" || Object.prototype.hasOwnProperty.call(dest, key)) return;
-        Object.defineProperty(dest, key, {
-            enumerable: true,
-            get: function() {
-                return source[key];
-            }
-        });
-    });
-    return dest;
-};
-exports.export = function(dest, destName, get) {
-    Object.defineProperty(dest, destName, {
-        enumerable: true,
-        get: get
-    });
-};
-
-},{}],"ifYPa":[function(require,module,exports) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"ifYPa":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$84ad = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
@@ -27900,7 +27910,8 @@ class App extends (0, _react.Component) {
         });
     }
     componentDidMount() {
-        fetch("http://localhost:2000/api/wallet-info").then((response)=>response.json()).then((json)=>this.setState({
+        // ${document.location.origin} will turn whatever url is to the localhost:2000 always
+        fetch(`${document.location.origin}/api/wallet-info`).then((response)=>response.json()).then((json)=>this.setState({
                 walletInfo: json
             }));
     }
@@ -27914,44 +27925,30 @@ class App extends (0, _react.Component) {
                     src: (0, _logoPngDefault.default)
                 }, void 0, false, {
                     fileName: "client/src/components/App.js",
-                    lineNumber: 25,
+                    lineNumber: 26,
                     columnNumber: 17
                 }, this),
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("br", {}, void 0, false, {
                     fileName: "client/src/components/App.js",
-                    lineNumber: 26,
+                    lineNumber: 27,
                     columnNumber: 17
                 }, this),
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
                     children: "Welcome to the blockchain..."
                 }, void 0, false, {
                     fileName: "client/src/components/App.js",
-                    lineNumber: 27,
+                    lineNumber: 28,
                     columnNumber: 17
                 }, this),
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("br", {}, void 0, false, {
-                    fileName: "client/src/components/App.js",
-                    lineNumber: 30,
-                    columnNumber: 17
-                }, this),
-                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                    children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Link), {
-                        to: "/blocks",
-                        children: "Blocks"
-                    }, void 0, false, {
-                        fileName: "client/src/components/App.js",
-                        lineNumber: 31,
-                        columnNumber: 22
-                    }, this)
-                }, void 0, false, {
                     fileName: "client/src/components/App.js",
                     lineNumber: 31,
                     columnNumber: 17
                 }, this),
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
                     children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Link), {
-                        to: "/conduct-transaction",
-                        children: "Conduct a Transaction"
+                        to: "/blocks",
+                        children: "Blocks"
                     }, void 0, false, {
                         fileName: "client/src/components/App.js",
                         lineNumber: 32,
@@ -27962,9 +27959,37 @@ class App extends (0, _react.Component) {
                     lineNumber: 32,
                     columnNumber: 17
                 }, this),
-                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("br", {}, void 0, false, {
+                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                    children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Link), {
+                        to: "/conduct-transaction",
+                        children: "Conduct a Transaction"
+                    }, void 0, false, {
+                        fileName: "client/src/components/App.js",
+                        lineNumber: 33,
+                        columnNumber: 22
+                    }, this)
+                }, void 0, false, {
                     fileName: "client/src/components/App.js",
                     lineNumber: 33,
+                    columnNumber: 17
+                }, this),
+                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                    children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Link), {
+                        to: "/transaction-pool",
+                        children: "Transaction Pool"
+                    }, void 0, false, {
+                        fileName: "client/src/components/App.js",
+                        lineNumber: 34,
+                        columnNumber: 22
+                    }, this)
+                }, void 0, false, {
+                    fileName: "client/src/components/App.js",
+                    lineNumber: 34,
+                    columnNumber: 17
+                }, this),
+                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("br", {}, void 0, false, {
+                    fileName: "client/src/components/App.js",
+                    lineNumber: 35,
                     columnNumber: 17
                 }, this),
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
@@ -27977,7 +28002,7 @@ class App extends (0, _react.Component) {
                             ]
                         }, void 0, true, {
                             fileName: "client/src/components/App.js",
-                            lineNumber: 35,
+                            lineNumber: 37,
                             columnNumber: 21
                         }, this),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
@@ -27987,24 +28012,24 @@ class App extends (0, _react.Component) {
                             ]
                         }, void 0, true, {
                             fileName: "client/src/components/App.js",
-                            lineNumber: 36,
+                            lineNumber: 38,
                             columnNumber: 21
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "client/src/components/App.js",
-                    lineNumber: 34,
+                    lineNumber: 36,
                     columnNumber: 17
                 }, this),
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("br", {}, void 0, false, {
                     fileName: "client/src/components/App.js",
-                    lineNumber: 38,
+                    lineNumber: 40,
                     columnNumber: 17
                 }, this)
             ]
         }, void 0, true, {
             fileName: "client/src/components/App.js",
-            lineNumber: 24,
+            lineNumber: 25,
             columnNumber: 12
         }, this);
     }
@@ -34711,6 +34736,7 @@ class Blocks extends (0, _react.Component) {
     }
     // fetch data from http://localhost:2000/api/blocks
     componentDidMount() {
+        // ${document.location.origin} will turn whatever url is to the localhost:2000 always
         fetch("http://localhost:2000/api/blocks").then((response)=>response.json()).then((json)=>this.setState({
                 blocks: json
             }));
@@ -34725,19 +34751,19 @@ class Blocks extends (0, _react.Component) {
                         children: "Home"
                     }, void 0, false, {
                         fileName: "client/src/components/Blocks.js",
-                        lineNumber: 26,
+                        lineNumber: 27,
                         columnNumber: 22
                     }, this)
                 }, void 0, false, {
                     fileName: "client/src/components/Blocks.js",
-                    lineNumber: 26,
+                    lineNumber: 27,
                     columnNumber: 17
                 }, this),
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h3", {
                     children: "Blocks"
                 }, void 0, false, {
                     fileName: "client/src/components/Blocks.js",
-                    lineNumber: 27,
+                    lineNumber: 28,
                     columnNumber: 17
                 }, this),
                 this.state.blocks.map((block)=>{
@@ -34745,14 +34771,14 @@ class Blocks extends (0, _react.Component) {
                         block: block
                     }, block.hash, false, {
                         fileName: "client/src/components/Blocks.js",
-                        lineNumber: 29,
+                        lineNumber: 30,
                         columnNumber: 16
                     }, this);
                 })
             ]
         }, void 0, true, {
             fileName: "client/src/components/Blocks.js",
-            lineNumber: 25,
+            lineNumber: 26,
             columnNumber: 12
         }, this);
     }
@@ -37324,6 +37350,8 @@ var _react = require("react");
 var _reactDefault = parcelHelpers.interopDefault(_react);
 var _reactBootstrap = require("react-bootstrap");
 var _reactRouterDom = require("react-router-dom");
+var _history = require("../history");
+var _historyDefault = parcelHelpers.interopDefault(_history);
 function _defineProperty(obj, key, value) {
     key = _toPropertyKey(key);
     if (key in obj) Object.defineProperty(obj, key, {
@@ -37368,9 +37396,26 @@ class ConductTransaction extends (0, _react.Component) {
                 amount: Number(event.target.value)
             });
         });
+        // call the api to send the transaction
+        _defineProperty(this, "conductTransaction", ()=>{
+            const { recipient, amount } = this.state;
+            // ${document.location.origin} will turn whatever url is to the localhost:2000 always
+            fetch(`${document.location.origin}/api/transact`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    recipient,
+                    amount
+                })
+            }).then((response)=>response.json()).then((json)=>{
+                alert(json.message || json.type);
+                (0, _historyDefault.default).push("/transaction-pool");
+            });
+        });
     }
     render() {
-        console.log("this.state", this.state);
         return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
             className: "ConductTransaction",
             children: [
@@ -37379,14 +37424,14 @@ class ConductTransaction extends (0, _react.Component) {
                     children: "Home"
                 }, void 0, false, {
                     fileName: "client/src/components/conductTransaction.js",
-                    lineNumber: 30,
+                    lineNumber: 51,
                     columnNumber: 17
                 }, this),
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h3", {
                     children: "Conduct a Transaction"
                 }, void 0, false, {
                     fileName: "client/src/components/conductTransaction.js",
-                    lineNumber: 31,
+                    lineNumber: 52,
                     columnNumber: 17
                 }, this),
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.FormGroup), {
@@ -37397,12 +37442,12 @@ class ConductTransaction extends (0, _react.Component) {
                         onChange: this.updateRecipient
                     }, void 0, false, {
                         fileName: "client/src/components/conductTransaction.js",
-                        lineNumber: 33,
+                        lineNumber: 54,
                         columnNumber: 21
                     }, this)
                 }, void 0, false, {
                     fileName: "client/src/components/conductTransaction.js",
-                    lineNumber: 32,
+                    lineNumber: 53,
                     columnNumber: 17
                 }, this),
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.FormGroup), {
@@ -37413,18 +37458,33 @@ class ConductTransaction extends (0, _react.Component) {
                         onChange: this.updateAmount
                     }, void 0, false, {
                         fileName: "client/src/components/conductTransaction.js",
-                        lineNumber: 37,
+                        lineNumber: 58,
                         columnNumber: 21
                     }, this)
                 }, void 0, false, {
                     fileName: "client/src/components/conductTransaction.js",
-                    lineNumber: 36,
+                    lineNumber: 57,
+                    columnNumber: 17
+                }, this),
+                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                    children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
+                        bsStyle: "danger",
+                        onClick: this.conductTransaction,
+                        children: "Submit"
+                    }, void 0, false, {
+                        fileName: "client/src/components/conductTransaction.js",
+                        lineNumber: 63,
+                        columnNumber: 21
+                    }, this)
+                }, void 0, false, {
+                    fileName: "client/src/components/conductTransaction.js",
+                    lineNumber: 62,
                     columnNumber: 17
                 }, this)
             ]
         }, void 0, true, {
             fileName: "client/src/components/conductTransaction.js",
-            lineNumber: 29,
+            lineNumber: 50,
             columnNumber: 12
         }, this);
     }
@@ -37436,6 +37496,161 @@ exports.default = ConductTransaction;
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","react-bootstrap":"3AD9A","react-router-dom":"9xmpe","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}]},["deGzz","1xC6H","iXgNX"], "iXgNX", "parcelRequireb0ae")
+},{"react":"21dqq","react-bootstrap":"3AD9A","react-router-dom":"9xmpe","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","react/jsx-dev-runtime":"iTorj","../history":"fxKik"}],"5ye4f":[function(require,module,exports) {
+var $parcel$ReactRefreshHelpers$2a20 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+var prevRefreshReg = window.$RefreshReg$;
+var prevRefreshSig = window.$RefreshSig$;
+$parcel$ReactRefreshHelpers$2a20.prelude(module);
+
+try {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _jsxDevRuntime = require("react/jsx-dev-runtime");
+var _react = require("react");
+var _reactDefault = parcelHelpers.interopDefault(_react);
+var _reactBootstrap = require("react-bootstrap");
+var _transaction = require("./Transaction");
+var _transactionDefault = parcelHelpers.interopDefault(_transaction);
+var _reactRouterDom = require("react-router-dom");
+var _history = require("../history");
+var _historyDefault = parcelHelpers.interopDefault(_history);
+function _defineProperty(obj, key, value) {
+    key = _toPropertyKey(key);
+    if (key in obj) Object.defineProperty(obj, key, {
+        value: value,
+        enumerable: true,
+        configurable: true,
+        writable: true
+    });
+    else obj[key] = value;
+    return obj;
+}
+function _toPropertyKey(t) {
+    var i = _toPrimitive(t, "string");
+    return "symbol" == typeof i ? i : String(i);
+}
+function _toPrimitive(t, r) {
+    if ("object" != typeof t || !t) return t;
+    var e = t[Symbol.toPrimitive];
+    if (void 0 !== e) {
+        var i = e.call(t, r || "default");
+        if ("object" != typeof i) return i;
+        throw new TypeError("@@toPrimitive must return a primitive value.");
+    }
+    return ("string" === r ? String : Number)(t);
+}
+// this will poll the transaction pool map every 10 seconds
+const POLL_INTERVAL_MS = 10000;
+class TransactionPool extends (0, _react.Component) {
+    constructor(...args){
+        super(...args);
+        _defineProperty(this, "state", {
+            transactionPoolMap: {}
+        });
+        // fetch data from http://localhost:2000/api/blocks with function
+        _defineProperty(this, "fetchTransactionPoolMap", ()=>{
+            // ${document.location.origin} will turn the url to the localhost:2000 always
+            fetch(`${document.location.origin}/api/transaction-pool-map`).then((response)=>response.json()).then((json)=>this.setState({
+                    transactionPoolMap: json
+                }));
+        });
+        _defineProperty(this, "fetchMineTransaction", ()=>{
+            fetch(`${document.location.origin}/api/mine-transactions`).then((response)=>{
+                if (response.status === 200) {
+                    alert("success");
+                    (0, _historyDefault.default).push("/blocks");
+                } else alert("The mine-transactions block request did not complete.");
+            });
+        });
+    }
+    // call the fetchTransactionPoolMap function
+    componentDidMount() {
+        this.fetchTransactionPoolMap();
+        // this will call the fetchTransactionPoolMap function every 10 seconds
+        this.fetchPoolMapInterval = setInterval(()=>this.fetchTransactionPoolMap(), POLL_INTERVAL_MS);
+    }
+    componentWillUnmount() {
+        // clear the interval
+        clearInterval(this.fetchPoolMapInterval);
+    }
+    render() {
+        return(// this will call the fetchTransactionPoolMap function
+        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+            className: "TransactionPool",
+            children: [
+                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                    children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Link), {
+                        to: "/",
+                        children: "Home"
+                    }, void 0, false, {
+                        fileName: "client/src/components/TransactionPool.js",
+                        lineNumber: 51,
+                        columnNumber: 22
+                    }, this)
+                }, void 0, false, {
+                    fileName: "client/src/components/TransactionPool.js",
+                    lineNumber: 51,
+                    columnNumber: 17
+                }, this),
+                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h3", {
+                    children: "Transaction Pool"
+                }, void 0, false, {
+                    fileName: "client/src/components/TransactionPool.js",
+                    lineNumber: 52,
+                    columnNumber: 17
+                }, this),
+                // this will loop through the transactionPoolMap and display the transaction from the fetch above
+                Object.values(this.state.transactionPoolMap).map((transaction)=>{
+                    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                        children: [
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("hr", {}, void 0, false, {
+                                fileName: "client/src/components/TransactionPool.js",
+                                lineNumber: 57,
+                                columnNumber: 33
+                            }, this),
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _transactionDefault.default), {
+                                transaction: transaction
+                            }, void 0, false, {
+                                fileName: "client/src/components/TransactionPool.js",
+                                lineNumber: 58,
+                                columnNumber: 33
+                            }, this)
+                        ]
+                    }, transaction.id, true, {
+                        fileName: "client/src/components/TransactionPool.js",
+                        lineNumber: 56,
+                        columnNumber: 18
+                    }, this);
+                }),
+                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("hr", {}, void 0, false, {
+                    fileName: "client/src/components/TransactionPool.js",
+                    lineNumber: 61,
+                    columnNumber: 17
+                }, this),
+                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
+                    bsStyle: "danger",
+                    onClick: this.fetchMineTransaction,
+                    children: "Mine the transactions"
+                }, void 0, false, {
+                    fileName: "client/src/components/TransactionPool.js",
+                    lineNumber: 62,
+                    columnNumber: 17
+                }, this)
+            ]
+        }, void 0, true, {
+            fileName: "client/src/components/TransactionPool.js",
+            lineNumber: 50,
+            columnNumber: 7
+        }, this));
+    }
+}
+exports.default = TransactionPool;
+
+  $parcel$ReactRefreshHelpers$2a20.postlude(module);
+} finally {
+  window.$RefreshReg$ = prevRefreshReg;
+  window.$RefreshSig$ = prevRefreshSig;
+}
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","react-router-dom":"9xmpe","./Transaction":"jLraF","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","react-bootstrap":"3AD9A","../history":"fxKik"}]},["deGzz","1xC6H","iXgNX"], "iXgNX", "parcelRequireb0ae")
 
 //# sourceMappingURL=index.764980e3.js.map

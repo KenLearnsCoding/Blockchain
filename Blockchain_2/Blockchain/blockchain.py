@@ -3,7 +3,7 @@
 
 # To be installed: pip install Flask
 # Download Postman to test the API
-# Importing the libraries
+# Importing the libraries to use the libraries for the blockchain system
 import datetime # to get the current time
 import hashlib # to hash the blocks
 import json # to encode the blocks before hashing
@@ -20,10 +20,11 @@ class Blockchain:
         self.create_block(
             proof = 1, 
             previous_hash='0'
-        )
-        
+    )
+
+    # this function is to make a block which includes neccessary items
     def create_block(self, proof, previous_hash):
-        #create the block with its properties
+        #create the block variable with its properties
         block= {
             'index': len(self.chain) + 1, 
             'timestamp': str(datetime.datetime.now()),# get the timestamp
@@ -133,7 +134,7 @@ def mine_block():
     
     # create a response to return to the user
     response = {
-        'message': 'Congratulation! you just mined a block!',
+        'message': 'Congratulations! you just mined a block!',
         'index': block['index'], 
         'timestamp': block['timestamp'],
         'proof': block['proof'],
@@ -145,7 +146,7 @@ def mine_block():
 # Getting the full Blockchain
 @app.route('/get_chain', methods = ['GET'])
 
-# creating the get_chain function to get the full chain
+# Creating the get_chain function to get the full chain
 def get_chain():
     # create a response to return to the user
     response = {
